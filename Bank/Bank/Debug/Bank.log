@@ -1,0 +1,4 @@
+﻿  Main.cpp
+d:\github\bank\bank\bank\main.cpp(201): warning C4326: 'main'의 반환 형식이 'int'이어야 하는데 'void'입니다.
+d:\github\bank\bank\bank\main.cpp(223): warning C4154: 배열 식을 삭제했습니다. 포인터로 변환이 제공됩니다.
+  Bank.vcxproj -> D:\Github\Bank\Bank\Debug\Bank.exe
