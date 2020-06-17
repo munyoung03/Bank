@@ -3,34 +3,39 @@
 #define NAME_LEN 20
 #define Menu ("-----Menu-----\n1. 계좌개설\n2. 입    금\n3. 출    금\n4. 계좌정보 전체 줄력\n5. 프로그램 종료\n선택: ")
 #define MAX_ACCID 100
-using namespace std;
 
+using namespace std;
 
 class Account
 {
 private:
-	int SSN; //주민등록번호
+	long long SSN; //주민등록번호
 	int accID; //계좌번호
 	int balance; //잔액
 	char* cusName; //고객이름
 public:
-	Account(int SSN,int accID,int balance,char* cusName) {
-		this->SSN = SSN;
-		this->accID = accID;
-		this->balance = balance;
+	Account(long long SSN,int accID,int balance,char* cusName)
+		:accID(accID), SSN(SSN), balance(balance)
+	{
 		this->cusName = new char[NAME_LEN];
 		strcpy_s(this->cusName, NAME_LEN, cusName);
+	}
+	Account(const Account& acc) 
+		:accID(acc.accID), SSN(acc.SSN), balance(acc.balance)
+	{
+		this->cusName = new char[NAME_LEN];
+		strcpy_s(this->cusName, NAME_LEN, acc.cusName);
 	}
 	~Account() {
 		delete[] cusName;
 	}
 
-	int getBalance()
+	int getBalance() const
 	{
 		return balance;
 	}
 
-	void deposit(int money)
+	void deposit(int money) 
 	{
 		balance += money;
 	}
@@ -41,21 +46,21 @@ public:
 			return false;
 		}
 		balance -= money;
-		return true;
+		return true;	
 	}
 
-	void printInfo() {
+	void printInfo() const{
 		cout << "계좌ID: " << accID << endl;
 		cout << "이  름: " << cusName << endl;
 		cout << "잔  액: " << balance << endl << endl;
 	}
 
-	bool checkId(int id)
+	bool checkId(int id) const
 	{
 		return id == accID;
 	}
 
-	bool checkSSN(int SSN)
+	bool checkSSN(long long SSN) const
 	{
 		return SSN == this->SSN;
 	}
@@ -153,7 +158,7 @@ void printInfo(Account **member, int &count) {
 int makeAccid(Account **member, int &count) {
 
 	int accId;
-	int SSN;
+	long long SSN;
 	int balance;
 	char cusName[NAME_LEN];
 
