@@ -6,6 +6,67 @@
 
 using namespace std;
 
+class Account
+{
+private:
+	long long SSN; //¡÷πŒµÓ∑œπ¯»£
+	int accID; //∞Ë¡¬π¯»£
+	int balance; //¿‹æ◊
+	char* cusName; //∞Ì∞¥¿Ã∏ß
+public:
+	Account(long long SSN, int accID, int balance, char* cusName)
+		:accID(accID), SSN(SSN), balance(balance)
+	{
+		this->cusName = new char[NAME_LEN];
+		strcpy_s(this->cusName, NAME_LEN, cusName);
+	}
+	Account(const Account& acc)
+		:accID(acc.accID), SSN(acc.SSN), balance(acc.balance)
+	{
+		cout << "∫πªÁª˝º∫¿⁄ ª˝º∫" << endl;
+		this->cusName = new char[NAME_LEN];
+		strcpy_s(this->cusName, NAME_LEN, acc.cusName);
+	}
+	~Account() {
+		delete[] cusName;
+	}
+
+	int getBalance() const
+	{
+		return balance;
+	}
+
+	void deposit(int money)
+	{
+		balance += money;
+	}
+
+	bool withdrawal(int money)
+	{
+		if (money > balance) {
+			return false;
+		}
+		balance -= money;
+		return true;
+	}
+
+	void printInfo() const {
+		cout << "∞Ë¡¬ID: " << accID << endl;
+		cout << "¿Ã  ∏ß: " << cusName << endl;
+		cout << "¿‹  æ◊: " << balance << endl << endl;
+	}
+
+	bool checkId(int id) const
+	{
+		return id == accID;
+	}
+
+	bool checkSSN(long long SSN) const
+	{
+		return SSN == this->SSN;
+	}
+};
+
 class AccountManager
 {
 private:
@@ -157,68 +218,7 @@ public :
 	}
 };
 
-class Account
-{
-private:
-	long long SSN; //¡÷πŒµÓ∑œπ¯»£
-	int accID; //∞Ë¡¬π¯»£
-	int balance; //¿‹æ◊
-	char* cusName; //∞Ì∞¥¿Ã∏ß
-public:
-	Account(long long SSN,int accID,int balance,char* cusName)
-		:accID(accID), SSN(SSN), balance(balance)
-	{
-		this->cusName = new char[NAME_LEN];
-		strcpy_s(this->cusName, NAME_LEN, cusName);
-	}
-	Account(const Account& acc) 
-		:accID(acc.accID), SSN(acc.SSN), balance(acc.balance)
-	{
-		cout << "∫πªÁª˝º∫¿⁄ ª˝º∫" << endl;
-		this->cusName = new char[NAME_LEN];
-		strcpy_s(this->cusName, NAME_LEN, acc.cusName);
-	}
-	~Account() {
-		delete[] cusName;
-	}
-
-	int getBalance() const
-	{
-		return balance;
-	}
-
-	void deposit(int money) 
-	{
-		balance += money;
-	}
-
-	bool withdrawal(int money)
-	{
-		if (money > balance) {
-			return false;
-		}
-		balance -= money;
-		return true;	
-	}
-
-	void printInfo() const{
-		cout << "∞Ë¡¬ID: " << accID << endl;
-		cout << "¿Ã  ∏ß: " << cusName << endl;
-		cout << "¿‹  æ◊: " << balance << endl << endl;
-	}
-
-	bool checkId(int id) const
-	{
-		return id == accID;
-	}
-
-	bool checkSSN(long long SSN) const
-	{
-		return SSN == this->SSN;
-	}
-};
-
-void main() {
+int main() {
 	AccountManager accManager;
 	int select;
 	while (1) {
@@ -237,7 +237,7 @@ void main() {
 			break;
 		case 5:
 			accManager.endProgram();
-			return;
+			return 0;
 		default: "1~5¡ﬂø° ∞Ò∂Û¡÷Ω Ω√ø¿.";
 			break;
 		}
