@@ -34,7 +34,7 @@ public:
 		this->cusName = new char[NAME_LEN];
 		strcpy_s(this->cusName, NAME_LEN, acc.cusName);
 	}
-	~Account() {
+	virtual ~Account() {
 		delete[] cusName;
 	}
 
