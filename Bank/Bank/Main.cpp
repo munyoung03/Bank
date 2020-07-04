@@ -227,6 +227,8 @@ public :
 	void endProgram() {
 		for (int i = 0; i < memberCount; i++)
 			delete member[i];
+		for (int i = 0; i < depositPassbookMemberCount; i++)
+			delete depositPassbookMember[i];
 	}
 };
 
